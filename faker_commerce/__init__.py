@@ -1,10 +1,10 @@
-"""Provider for Faker which adds fake microservice names."""
 
 import random
+from typing import Union
 
-import faker.providers
+from faker.providers import BaseProvider
 
-CATEGORIES = [
+CATEGORIES: list = [
   "Books",
   "Movies",
   "Music",
@@ -97,10 +97,10 @@ PRODUCT_DATA: dict[str, list] = {
 }
 
 
-class Provider(faker.providers.BaseProvider):
-    """Provider for Faker which adds fake microservice names."""
+class Provider(BaseProvider):
+    """Provider for Faker which adds fake ecommerce product information."""
 
-    def ecommerce_name(self):
+    def ecommerce_name(self) -> str:
         """Fake product names."""
         product = self.random_element(PRODUCT_DATA['product'])
         adjective = self.random_element(PRODUCT_DATA['adjective'])
@@ -122,6 +122,6 @@ class Provider(faker.providers.BaseProvider):
     def ecommerce_category(self) -> str:
         return self.random_element(CATEGORIES)
 
-    def ecommerce_price(self, as_int: bool = True):
+    def ecommerce_price(self, as_int: bool = True) -> Union[int, float]:
         n = self.random_int(min=100, max=99999999)
         return round(n, 2) if as_int else n / 100
