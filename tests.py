@@ -35,8 +35,6 @@ class IntegrationTestCase(unittest.TestCase):
 class EcommerceProviderTestCase(unittest.TestCase):
     """Provider test case."""
 
-    # pylint: disable=protected-access
-
     def setUp(self):
         self.provider = faker_commerce.Provider(Generator())
 
@@ -64,6 +62,12 @@ class EcommerceProviderTestCase(unittest.TestCase):
     def test_category(self):
         """Test lists in root of module don't contain duplicates."""
         result = self.provider.ecommerce_category()
+        self.assertIsInstance(result, str)
+        self.assertGreater(len(result), 1)
+
+    def test_material(self):
+        """Test lists in root of module don't contain duplicates."""
+        result = self.provider.ecommerce_material()
         self.assertIsInstance(result, str)
         self.assertGreater(len(result), 1)
 

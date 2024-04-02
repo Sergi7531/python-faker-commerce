@@ -29,20 +29,22 @@ CATEGORIES = [
   "Industrial"
 ]
 
-PRODUCT_DATA = {
-    'material': [
-        "Steel",
-        "Wooden",
-        "Concrete",
-        "Plastic",
-        "Cotton",
-        "Granite",
-        "Rubber",
-        "Metal",
-        "Soft",
-        "Fresh",
-        "Frozen"
-    ],
+MATERIALS: list = [
+  "Steel",
+  "Wooden",
+  "Concrete",
+  "Plastic",
+  "Cotton",
+  "Granite",
+  "Rubber",
+  "Metal",
+  "Soft",
+  "Fresh",
+  "Frozen"
+]
+
+PRODUCT_DATA: dict[str, list] = {
+    'material': MATERIALS,
     'product': [
         "Chair",
         "Car",
@@ -114,7 +116,10 @@ class Provider(faker.providers.BaseProvider):
         names = random.choices(choices, k=1)
         return names[0]
 
-    def ecommerce_category(self):
+    def ecommerce_material(self) -> str:
+        return self.random_element(MATERIALS)
+
+    def ecommerce_category(self) -> str:
         return self.random_element(CATEGORIES)
 
     def ecommerce_price(self, as_int: bool = True):
